@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import com.odin.core.data.constants.LanguageConstants;
 import com.odin.core.data.constants.ResponseCodes;
 import com.odin.core.data.dto.ProfileDTO;
 import com.odin.core.data.dto.ResponseDTO;
@@ -45,7 +46,7 @@ public class CreateCustomerServiceImpl implements CreateService {
 
         if (!ObjectUtils.isEmpty(checkProfile)) {
             log.error("Customer already exists with customer id: {}", checkProfile.getCustomerId());
-            return response.buildResponse(ResponseCodes.USER_EXISTS);
+            return response.buildResponse(LanguageConstants.EN, ResponseCodes.USER_EXISTS);
         } else {
             log.info("Creating new customer");
 
