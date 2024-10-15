@@ -23,45 +23,24 @@ import lombok.extern.slf4j.Slf4j;
 public class CreateCustomerServiceImpl implements CreateService {
 
     @Autowired
-    private Utility utility;
-
-    @Autowired
     ResponseObject response;
 
     @Autowired
     private ProfileRepository profileRepo;
-
+    
     @Autowired
     private AuthRepository authRepo;
 
+
     @Override
-    public ResponseDTO onboard(ProfileDTO profile) {
+    public ResponseDTO save(Profile profile) {
         log.info("Inside customer onboard service");
-
-        // Convert DTO to Profile entity
-        Profile customerProfile = utility.dtoToEntity(profile, Profile.class);
-        Auth customerAuth = customerProfile.getAuth();
-        customerProfile.setAuth(null);
-        Profile checkProfile = profileRepo.findByMobileAndIdNum(profile.getMobile(), profile.getIdNum());
-
-        if (!ObjectUtils.isEmpty(checkProfile)) {
-            log.error("Customer already exists with customer id: {}", checkProfile.getCustomerId());
-            return response.buildResponse(LanguageConstants.EN, ResponseCodes.USER_EXISTS);
-        } else {
-            log.info("Creating new customer");
-
-            // Save the Profile entity first to generate the customerId
-            customerProfile.setAuth(null);
-            Profile savedProfile = profileRepo.save(customerProfile);
-            // Create and assign the Auth entity with the same customerId
-            customerAuth.setCustomerId(savedProfile.getCustomerId());
-
-            // Save the Auth entity
-            authRepo.save(customerAuth);
-
-            // Return response
-            return response.buildResponse(ResponseCodes.USER_CREATED, savedProfile);
-        }
+        Auth newAuth = profile.getAuth();
+        profile.setAuth(null);
+        profileRepo.save(profile);
+        newAuth.setCustomerId(profile.getCustomerId());
+        authRepo.save(newAuth);
+       return response.buildResponse(ResponseCodes.USER_CREATED, profile);
     }
 
 }
