@@ -16,5 +16,7 @@ public class ResponseCodes {
 	public static final String FAILURE = "FAILURE";
 	public static final Integer USER_EXISTS = 996;
 	public static final Integer USER_CREATED = 2001;
+	public static final Integer FILE_SAVE_SUCCESSFUL = 2002;
+	public static final Integer FILE_SAVE_FAILURE = 995;
 	
 }

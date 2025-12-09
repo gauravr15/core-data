@@ -13,19 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.odin.core.data.constants.ApplicationConstants;
 import com.odin.core.data.dto.ResponseDTO;
-import com.odin.core.data.entity.Profile;
+import com.odin.core.data.entity.FileEntity;
 import com.odin.core.data.service.CreateService;
 
 @RestController
 @RequestMapping(value = ApplicationConstants.API_VERSION)
-public class ProfileController {
+public class FileController {
 	
 	@Autowired
-	@Qualifier(value = "profileService")
+	@Qualifier(value = "fileService")
 	private CreateService createService;
 	
-	@PostMapping(ApplicationConstants.CUSTOMER + ApplicationConstants.SAVE)
-	public ResponseEntity<Object> createCustomer(HttpServletRequest servlet, @RequestBody Profile profileDTO ){
+	@PostMapping(ApplicationConstants.CUSTOMER + ApplicationConstants.FILE + ApplicationConstants.SAVE)
+	public ResponseEntity<Object> saveFile(HttpServletRequest servlet, @RequestBody FileEntity profileDTO ){
 		ResponseDTO response = createService.save(profileDTO);
 		return new ResponseEntity<>(response, HttpStatus.OK); 
 	}
