@@ -87,5 +87,10 @@ public class Auth {
     @MapsId
     @JoinColumn(name = "customer_id")
     private Profile profile;
+    
+    @Column(name = "public_key")
+    private String publicKey;
 
+    @Column(name = "key_version")
+    private String keyVersion;
 }
