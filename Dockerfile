@@ -7,7 +7,7 @@ EXPOSE 8010
 # Spring profiles
 ENV SPRING_PROFILES_ACTIVE=production,global
 
-# Disable Eureka registration/fetch
+
 #ENV EUREKA_CLIENT_REGISTER_WITH_EUREKA=false
 #ENV EUREKA_CLIENT_FETCH_REGISTRY=false
 
